@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ly Houleng - Resume</title>
+
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .resume-wrapper {
+      width: 347.91px;
+      height: 492.04px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .resume {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      background: rgb(255, 255, 255);
+
+      /* design/native size — author your content at this size */
+      width: 800px;
+      /* whatever the "real" resume width is */
+      height: 1130px;
+      /* whatever the "real" resume height is */
+
+      transform-origin: top left;
+      transform: scale(var(--scale-factor));
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .sidebar {
+      background-color: #1a2332;
+      color: #e8ecf1;
+      padding: 32px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      height: 100%;
+      /* width: 39vw; */
+    }
+
+    .avatar-ring {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 3px solid #4a9eff;
+      overflow: hidden;
+      margin: 0 auto;
+      background: #2a3a52;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 600;
+      color: #4a9eff;
+      letter-spacing: 1px;
+    }
+
+    .sidebar-section-title {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #4a9eff;
+      /* margin-bottom: 12px; */
+      padding-bottom: 6px;
+      border-bottom: 1px solid #2a3a52;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    .contact-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #8a9ab5;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    .contact-value {
+      font-size: 12px;
+      color: #c8d4e8;
+      word-break: break-all;
+    }
+
+    .contact-value a {
+      color: #4a9eff;
+      text-decoration: none;
+    }
+
+    .skill-pill {
+      display: inline-block;
+      background: #2a3a52;
+      color: #c8d4e8;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 3px;
+      margin: 3px 3px 0 0;
+      border: 0.5px solid #3a4f6a;
+    }
+
+    .lang-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .lang-name {
+      font-size: 12px;
+      color: #c8d4e8;
+      width: 52px;
+    }
+
+    .lang-bar-track {
+      flex: 1;
+      height: 3px;
+      background: #2a3a52;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .lang-bar-fill {
+      height: 100%;
+      background: #4a9eff;
+      border-radius: 2px;
+    }
+
+    .main {
+      padding: 36px 36px 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* .header-block {
+  border-bottom: 2px solid #f0f2f5;
+  padding-bottom: 20px;
+} */
+
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .title-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 12px;
+    }
+
+    .job-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #4a9eff;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .summary {
+      font-size: 12.5px;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .section-header {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #4a9eff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #f0f2f5;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 16px 1fr;
+      gap: 0 14px;
+      margin-bottom: 20px;
+    }
+
+    .exp-dot {
+      margin-top: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4a9eff;
+      border: 2px solid #c8dff8;
+      flex-shrink: 0;
+    }
+
+    .exp-dot-line {
+      position: relative;
+    }
+
+    .exp-dot-line::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 3px;
+      width: 1px;
+      height: calc(100% + 10px);
+      background: #e0e8f4;
+    }
+
+    .exp-dot-line.last-exp::before {
+      height: calc(100% - 12px)
+    }
+
+    .exp-period {
+      font-size: 11px;
+      font-weight: 500;
+      color: #4a9eff;
+      margin-bottom: 2px;
+    }
+
+    .exp-company {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-bottom: 3px;
+    }
+
+    .exp-role {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: 6px;
+    }
+
+    .exp-desc {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+      /* font-style: italic; */
+    }
+
+    .edu-item {
+      display: grid;
+      grid-template-columns: 16px 1fr;
+      gap: 0 14px;
+    }
+
+    .edu-dot {
+      margin-top: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4a9eff;
+      border: 2px solid #c8dff8;
+      flex-shrink: 0;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      /* Set your desired size */
+      height: 120px;
+      margin: 0 auto 20px auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      /* Makes the container a perfect circle */
+      background: #f0f2f5;
+      /* Fallback background color */
+      border: 3px solid #ffffff;
+      /* White inner ring */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      /* Soft, modern depth shadow */
+      overflow: hidden;
+      /* Crucial: clips the image to the circle shape */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Smooth zoom effect when hovering over the avatar */
+    .profile-avatar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Ensures the image fills the circle perfectly without distorting */
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Crops the image to fill the space proportionally */
+      object-position: center;
+      /* Centers the face/content of the image */
+    }
+
+    .skill-section {
+      margin-top: 10px;
+    }
+    .skill-section-header {
+      font-weight: 500;
+    }
+
+
+    .skill-section ul {
+      margin-left: 12px;
+      font-size: 11px;
+    }
+
+    @media print {
+
+      /* Hide everything by default */
+      body * {
+        visibility: hidden;
+      }
+
+      /* Show only the resume and its children */
+      .resume,
+      .resume * {
+        visibility: visible;
+      }
+
+      /* Reset wrapper scaling/positioning for print */
+      .resume-wrapper {
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        position: static !important;
+      }
+
+      .resume {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: none !important;
+        /* undo the scale() from preview mode */
+        width: 100% !important;
+        height: auto !important;
+        margin: 0;
+        box-shadow: none;
+      }
+
+      .resume p,
+      .resume h1,
+      .resume h2,
+      .resume h3 {
+        margin: 0;
+        /* reset, then add back deliberately where needed */
+      }
+      .skill-section ul {
+        margin-left: 15px;
+      }
+
+      /* Optional: control page size/margins */
+      @page {
+        size: A4;
+        /* or 'letter' */
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="resume-wrapper">
+
+    <div class="resume">
+      <div class="sidebar">
+
+        <div class="profile-avatar">
+          <img src="https://horleng.vercel.app/images/vissiondev.png" alt="Profile Picture">
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Contact</div>
+          <div class="contact-item">
+            <span class="contact-label">Phone</span>
+            <span class="contact-value">+855 0964 083 197</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <span class="contact-value"><a href="mailto:horleng123@gmail.com">horleng123@gmail.com</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Location</span>
+            <span class="contact-value">Phnom Penh, Cambodia</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Portfolio</span>
+            <span class="contact-value"><a href="https://horleng.vercel.app">horleng.vercel.app</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value"><a href="https://github.com/horlengg">github.com/horlengg</a></span>
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Core Skills</div>
+
+          <div class="skill-section">
+            <div class="skill-section-header">Native iOS</div>
+            <ul>
+              <li>Swift & SwiftUI</li>
+              <li>Combine, Async/Await Concurrency</li>
+              <li>MVVM & Clean Architecture</li>
+              <li>CoreData, SwiftData, Biometric APIs</li>
+            </ul>
+          </div>
+
+          <div class="skill-section">
+            <div class="skill-section-header">Cross-Platform</div>
+            <ul>
+              <li>Flutter & Dart</li>
+              <li>Riverpod & Provider State Mgmt</li>
+              <li>Dependency Injection</li>
+            </ul>
+          </div>
+
+          <div class="skill-section">
+            <div class="skill-section-header">Leadership & Impact</div>
+            <ul>
+              <li>Technical Mentorship</li>
+              <li>Cross-Functional Alignment</li>
+              <li>Code Review Direction</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Languages</div>
+          <div class="lang-item">
+            <span class="lang-name">Khmer</span>
+            <div class="lang-bar-track">
+              <div class="lang-bar-fill" style="width:70%"></div>
+            </div>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">English</span>
+            <div class="lang-bar-track">
+              <div class="lang-bar-fill" style="width:50%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="header-block">
+          <div class="name">Ly Houleng</div>
+          <div class="title-bar">
+            <span class="job-title">Senior Mobile App Developer</span>
+          </div>
+          <p class="summary">
+            Senior Mobile Developer with extensive experience building high-quality iOS and cross-platform applications
+            using Swift, SwiftUI, and Flutter. Skilled in mobile architecture, API integration, performance
+            optimization. Proven ability to deliver scalable solutions and collaborate effectively with cross-functional
+            teams.
+          </p>
+        </div>
+
+        <div>
+          <div class="section-header">Experience</div>
+
+          <div class="exp-item">
+            <div class="exp-dot-line">
+              <div class="exp-dot"></div>
+            </div>
+            <div>
+              <div class="exp-period">June 2026 — Present</div>
+              <div class="exp-company">Chip Mong Commercial Bank</div>
+              <div class="exp-role">Senior iOS Developer</div>
+              <p class="exp-desc">Develop and maintain secure, high-performance iOS banking applications using SwiftUI,
+                delivering seamless and reliable user experiences. Implement new features, optimize application
+                performance, enhance API integrations, and collaborate with cross-functional teams to deliver scalable
+                digital banking solutions.</p>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-dot-line">
+              <div class="exp-dot"></div>
+            </div>
+            <div>
+              <div class="exp-period">Jan 2025 — June 2026</div>
+              <div class="exp-company">Asia Pacific Development Bank</div>
+              <div class="exp-role">Mobile Developer</div>
+              <p class="exp-desc">Maintained and enhanced the bank's Flutter mobile application, delivering secure,
+                high-performance experiences across iOS and Android. Implemented new features, optimized API
+                integrations, and resolved issues while collaborating with backend teams. Developed native iOS solutions
+                using SwiftUI for platform-specific functionality.</p>
+            </div>
+          </div>
+
+          <div class="exp-item" style="margin-bottom:0">
+            <div class="exp-dot-line last-exp">
+              <div class="exp-dot"></div>
+            </div>
+            <div>
+              <div class="exp-period">June 2023 — Dec 2024</div>
+              <div class="exp-company">Asia Pacific Development Bank</div>
+              <div class="exp-role">Web Developer</div>
+              <p class="exp-desc">Developed secure, high-performance banking web applications using Vue 3, TypeScript,
+                and RESTful APIs. Contributed to Electron-based desktop applications and supported cross-functional
+                projects with React, Express.js, and NestJS. Collaborated with product and QA teams to deliver scalable,
+                seamless user experiences.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-header">Education</div>
+          <div class="edu-item">
+            <div class="exp-dot-line last-exp">
+              <div class="exp-dot"></div>
+            </div>
+            <div>
+              <div class="exp-period">2022 — 2025</div>
+              <div class="exp-company">Royal University of Phnom Penh</div>
+              <div class="exp-role">Bachelor of Computer Science</div>
+              <p class="exp-desc">
+                Built a strong foundation in data structures, programming patterns, and problem-solving through hands-on
+                software development and web technologies. Developed practical understanding of database systems,
+                software engineering principles, and project management. Strengthened these concepts through coding
+                challenges and collaborative development projects.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // const layout = document.querySelector(".resume")
+    // layout.style.height = 500
+    // layout.style.width = 0.7070 * 500
+    // window.print();
+    const wrapper = document.querySelector('.resume-wrapper');
+    const resume = document.querySelector('.resume');
+    const nativeWidth = 800; // match the CSS width above
+
+    function fitScale() {
+      const scale = wrapper.clientWidth / nativeWidth;
+      resume.style.setProperty('--scale-factor', scale);
+    }
+
+    fitScale();
+    window.addEventListener('resize', fitScale);
+  </script>
+
+</body>
+
+</html>
