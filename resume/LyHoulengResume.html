@@ -7,13 +7,16 @@
   <title>Ly Houleng - Resume</title>
 
   <style>
-
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap');
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    body {
+      background-color: #f1f5f9;
     }
 
 
@@ -153,7 +156,7 @@
       padding: 36px 36px 36px 32px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 20px;
     }
 
     /* .header-block {
@@ -330,6 +333,7 @@
     .skill-section {
       margin-top: 10px;
     }
+
     .skill-section-header {
       font-weight: 500;
     }
@@ -340,55 +344,51 @@
       font-size: 11px;
     }
 
+    .exp-at {
+      font-weight: 400;
+      color: var(--color-text-secondary);
+    }
+    .exp-link {
+      font-size: 11px;
+      color: #4a9eff;
+      text-decoration: none;
+    }
+
     @media print {
-
-      /* Hide everything by default */
-      body * {
-        visibility: hidden;
+      @page {
+        size: A4;
+        margin: 0;
       }
 
-      /* Show only the resume and its children */
-      .resume,
-      .resume * {
-        visibility: visible;
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
       }
 
-      /* Reset wrapper scaling/positioning for print */
+      /* Remove everything except the resume (buttons, other sections, etc.) */
+      body>*:not(.resume-wrapper) {
+        display: none !important;
+      }
+
       .resume-wrapper {
-        width: auto !important;
-        height: auto !important;
-        overflow: visible !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        overflow: hidden !important;
         position: static !important;
       }
 
       .resume {
-        position: absolute;
-        top: 0;
-        left: 0;
+        position: static !important;
         transform: none !important;
-        /* undo the scale() from preview mode */
-        width: 100% !important;
-        height: auto !important;
-        margin: 0;
+        width: 210mm !important;
+        height: 297mm !important;
         box-shadow: none;
-      }
 
-      .resume p,
-      .resume h1,
-      .resume h2,
-      .resume h3 {
-        margin: 0;
-        /* reset, then add back deliberately where needed */
-      }
-      .skill-section ul {
-        margin-left: 15px;
-      }
-
-      /* Optional: control page size/margins */
-      @page {
-        size: A4;
-        /* or 'letter' */
-        margin: 0;
+        /* Make the dark sidebar and colors actually print */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
     }
   </style>
@@ -410,7 +410,7 @@
           <div class="sidebar-section-title">Contact</div>
           <div class="contact-item">
             <span class="contact-label">Phone</span>
-            <span class="contact-value">+855 0964 083 197</span>
+            <span class="contact-value">+855 96 408 3197</span>
           </div>
           <div class="contact-item">
             <span class="contact-label">Email</span>
@@ -422,49 +422,38 @@
           </div>
           <div class="contact-item">
             <span class="contact-label">Portfolio</span>
-            <span class="contact-value"><a href="https://horleng.vercel.app">horleng.vercel.app</a></span>
+            <span class="contact-value"><a href="https://horleng.vercel.app">https://horleng.vercel.app</a></span>
           </div>
           <div class="contact-item">
             <span class="contact-label">GitHub</span>
-            <span class="contact-value"><a href="https://github.com/horlengg">github.com/horlengg</a></span>
+            <span class="contact-value"><a href="https://github.com/horlengg">https://github.com/horlengg</a></span>
           </div>
         </div>
 
         <div>
           <div class="sidebar-section-title">Core Skills</div>
-
           <div class="skill-section">
-            <div class="skill-section-header">Native iOS</div>
             <ul>
-              <li>Swift & SwiftUI</li>
+              <li>Swift, SwiftUI (primary), UIKit</li>
               <li>Combine, Async/Await Concurrency</li>
               <li>MVVM & Clean Architecture</li>
-              <li>CoreData, SwiftData, Biometric APIs</li>
+              <li>RESTful APIs, URLSession, Codable, SwiftData / CoreData</li>
+              <li>Push Notifications (APNs, FCM), Firebase</li>
+              <li>Biometric Auth, Keychain, App Security</li>
+              <li>Deep Links, Universal Links</li>
+              <li>iOS SDK Integration</li>
+              <li>SwiftUI Profiling, Xcode Instruments, Memory Leak Detection</li>
+              <li>Dependency Injection, Unit Testing (XCTest)</li>
+              <li>Xcode, Git, Swift Package Manager (SPM)</li>
             </ul>
           </div>
 
-          <div class="skill-section">
-            <div class="skill-section-header">Cross-Platform</div>
-            <ul>
-              <li>Flutter & Dart</li>
-              <li>Riverpod & Provider State Mgmt</li>
-              <li>Dependency Injection</li>
-            </ul>
-          </div>
 
-          <div class="skill-section">
-            <div class="skill-section-header">Leadership & Impact</div>
-            <ul>
-              <li>Technical Mentorship</li>
-              <li>Cross-Functional Alignment</li>
-              <li>Code Review Direction</li>
-            </ul>
-          </div>
         </div>
 
         <div>
           <div class="sidebar-section-title">Languages</div>
-          <div class="lang-item">
+          <div class="lang-item" style="margin-top: 10px;">
             <span class="lang-name">Khmer</span>
             <div class="lang-bar-track">
               <div class="lang-bar-fill" style="width:70%"></div>
@@ -473,7 +462,7 @@
           <div class="lang-item">
             <span class="lang-name">English</span>
             <div class="lang-bar-track">
-              <div class="lang-bar-fill" style="width:50%"></div>
+              <div class="lang-bar-fill" style="width:60%"></div>
             </div>
           </div>
         </div>
@@ -483,13 +472,13 @@
         <div class="header-block">
           <div class="name">Ly Houleng</div>
           <div class="title-bar">
-            <span class="job-title">Senior Mobile App Developer</span>
+            <span class="job-title">Senior iOS Developer</span>
           </div>
           <p class="summary">
-            Senior Mobile Developer with extensive experience building high-quality iOS and cross-platform applications
-            using Swift, SwiftUI, and Flutter. Skilled in mobile architecture, API integration, performance
-            optimization. Proven ability to deliver scalable solutions and collaborate effectively with cross-functional
-            teams.
+            Software Developer with 3+ years of experience building secure iOS and
+            cross-platform apps with Swift, SwiftUI, and Flutter. Skilled in mobile
+            architecture, API integration, and performance optimization, with a focus
+            on banking apps.
           </p>
         </div>
 
@@ -504,10 +493,10 @@
               <div class="exp-period">June 2026 — Present</div>
               <div class="exp-company">Chip Mong Commercial Bank</div>
               <div class="exp-role">Senior iOS Developer</div>
-              <p class="exp-desc">Develop and maintain secure, high-performance iOS banking applications using SwiftUI,
-                delivering seamless and reliable user experiences. Implement new features, optimize application
-                performance, enhance API integrations, and collaborate with cross-functional teams to deliver scalable
-                digital banking solutions.</p>
+              <p class="exp-desc">
+                Build and maintain secure, high-performance iOS banking apps in SwiftUI. 
+                Ship new features, optimize performance, and improve API integrations.
+              </p>
             </div>
           </div>
 
@@ -519,10 +508,10 @@
               <div class="exp-period">Jan 2025 — June 2026</div>
               <div class="exp-company">Asia Pacific Development Bank</div>
               <div class="exp-role">Mobile Developer</div>
-              <p class="exp-desc">Maintained and enhanced the bank's Flutter mobile application, delivering secure,
-                high-performance experiences across iOS and Android. Implemented new features, optimized API
-                integrations, and resolved issues while collaborating with backend teams. Developed native iOS solutions
-                using SwiftUI for platform-specific functionality.</p>
+              <p class="exp-desc">
+                Maintained the bank's Flutter app for iOS and Android, 
+                adding features and optimizing API integrations with backend teams.
+              </p>
             </div>
           </div>
 
@@ -534,10 +523,10 @@
               <div class="exp-period">June 2023 — Dec 2024</div>
               <div class="exp-company">Asia Pacific Development Bank</div>
               <div class="exp-role">Web Developer</div>
-              <p class="exp-desc">Developed secure, high-performance banking web applications using Vue 3, TypeScript,
-                and RESTful APIs. Contributed to Electron-based desktop applications and supported cross-functional
-                projects with React, Express.js, and NestJS. Collaborated with product and QA teams to deliver scalable,
-                seamless user experiences.</p>
+              <p class="exp-desc">
+                Built secure banking web apps with Vue 3, TypeScript, and RESTful APIs. 
+                Contributed to Electron desktop apps and to React, Express.js, and NestJS projects.
+              </p>
             </div>
           </div>
         </div>
@@ -552,15 +541,49 @@
               <div class="exp-period">2022 — 2025</div>
               <div class="exp-company">Royal University of Phnom Penh</div>
               <div class="exp-role">Bachelor of Computer Science</div>
-              <p class="exp-desc">
-                Built a strong foundation in data structures, programming patterns, and problem-solving through hands-on
-                software development and web technologies. Developed practical understanding of database systems,
-                software engineering principles, and project management. Strengthened these concepts through coding
-                challenges and collaborative development projects.
-              </p>
             </div>
           </div>
         </div>
+
+        <div>
+          <div class="section-header">Projects</div>
+
+          <div class="exp-item">
+            <div class="exp-dot-line"><div class="exp-dot"></div></div>
+            <div>
+              <div class="exp-role">Liveness Detection App <span class="exp-at">(Personal)</span></div>
+              <p class="exp-desc">Short description of what it does and the tech used (for example, Vision or ML Kit).</p>
+              <a class="exp-link" href="https://github.com/horlengg/liveness_detection">github.com/horlengg/liveness_detection</a>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-dot-line"><div class="exp-dot"></div></div>
+            <div>
+              <div class="exp-role">QR &amp; Barcode Scanner with Animation <span class="exp-at">(Personal)</span></div>
+              <p class="exp-desc">Short description of what it does and the tech used.</p>
+              <a class="exp-link" href="https://github.com/horlengg/barcode_scanner_animation">github.com/horlengg/barcode_scanner_animation</a>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-dot-line"><div class="exp-dot"></div></div>
+            <div>
+              <div class="exp-role">EDC Integration for Bill Payment <span class="exp-at">(Asia Pacific Development Bank)</span></div>
+              <p class="exp-desc">Integrated EDC devices into the mobile app to support bill payment.</p>
+            </div>
+          </div>
+
+          <div class="exp-item" style="margin-bottom:0">
+            <div class="exp-dot-line last-exp"><div class="exp-dot"></div></div>
+            <div>
+              <div class="exp-role">Feature Flag <span class="exp-at">(Chip Mong Commercial Bank)</span></div>
+              <p class="exp-desc">Implemented feature flags in the banking app to turn features on or off remotely without a new release.</p>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
