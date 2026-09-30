@@ -8,12 +8,12 @@
 
 Many people in shops and markets never look at their phone when a payment arrives. They listen for it. Popular QR payment apps in Southeast Asia made this a habit: the phone announces "received 5 dollars" out loud, so a seller can keep serving customers.
 
-iOS has no built-in text-to-speech for push notifications. A notification can only play a single sound file that ships with the app, or that the app places in a location the system can read. In this post I'll show how I built a **spoken amount notification** in a native iOS banking app, using:
+iOS has no built-in text-to-speech for push notifications. A notification can only play a single sound file that ships with the app, or that the app places in a location the system can read. In this post I'll show how I built a *spoken amount notification* in a native iOS banking app, using:
 
-- a **Notification Service Extension** that intercepts the push before it is shown,
-- an **App Group** to share settings and files between the app and the extension,
-- pre-recorded **voice clips** (one per word or number),
-- a small **audio composer** that stitches those clips into one smooth sound.
+- a *Notification Service Extension* that intercepts the push before it is shown,
+- an *App Group* to share settings and files between the app and the extension,
+- pre-recorded *voice clips* (one per word or number),
+- a small *audio composer* that stitches those clips into one smooth sound.
 
 By the end you'll have the full setup in Xcode and the code to build it.
 
@@ -54,11 +54,11 @@ UNNotificationSound(named: "merged-<uuid>.caf")
 System shows the notification and plays the custom sound
 ```
 
-The important trick is step 5. When a notification is delivered, the system looks for custom sounds in the app's **Library/Sounds** folder. For extensions, it also looks in the **App Group container's** **Library/Sounds** folder. That is what lets a sound generated at runtime, inside the extension, be played as the notification sound.
+The important trick is step 5. When a notification is delivered, the system looks for custom sounds in the app's *Library/Sounds* folder. For extensions, it also looks in the *App Group container's* *Library/Sounds* folder. That is what lets a sound generated at runtime, inside the extension, be played as the notification sound.
 
 ### The push payload
 
-The extension only runs if the payload has **"mutable-content": 1**. The amount and currency travel as custom keys:
+The extension only runs if the payload has *"mutable-content": 1*. The amount and currency travel as custom keys:
 
 ```json
 {
@@ -85,19 +85,19 @@ If anything fails inside the extension, the user still gets this normal notifica
 
 ### 2.1 Create the App Group
 
-The main app and the extension run in **separate processes with separate sandboxes**. They can't read each other's files or **UserDefaults**. An App Group gives both a shared container.
+The main app and the extension run in *separate processes with separate sandboxes*. They can't read each other's files or *UserDefaults*. An App Group gives both a shared container.
 
 **In the Apple Developer portal**
 
-1. Go to **Certificates, Identifiers & Profiles → Identifiers**.
-2. Choose **App Groups** from the dropdown and click **+**.
-3. Register a group ID, for example **group.com.yourcompany.yourapp**.
-4. Open your app's App ID, enable **App Groups**, and select the group you just created.
+1. Go to *Certificates, Identifiers & Profiles → Identifiers*.
+2. Choose *App Groups* from the dropdown and click **+**.
+3. Register a group ID, for example *group.com.yourcompany.yourapp*.
+4. Open your app's App ID, enable *App Groups*, and select the group you just created.
 
 **In Xcode (main app target)**
 
 1. Select your project, then the **app target**.
-2. Open **Signing & Capabilities**, click **+ Capability**, and add **App Groups**.
+2. Open *Signing & Capabilities*, click *+ Capability*, and add *App Groups*.
 3. Tick **group.com.yourcompany.yourapp**. (Xcode can also create it for you if automatic signing is on.)
 
 You'll repeat the last two steps for the extension target after you create it.
@@ -106,14 +106,14 @@ You'll repeat the last two steps for the extension target after you create it.
 
 ### 2.2 Create the Notification Service Extension
 
-1. In Xcode, choose **File → New → Target…**
-2. Select **Notification Service Extension** (iOS section) and click **Next**.
-3. Give it a name such as **NotificationService**. The bundle ID will be **com.yourcompany.yourapp.NotificationService**.
+1. In Xcode, choose *File → New → Target…*
+2. Select **Notification Service Extension** (iOS section) and click *Next*.
+3. Give it a name such as **NotificationService**. The bundle ID will be *com.yourcompany.yourapp.NotificationService*.
 4. Click **Finish**. When Xcode asks *"Activate scheme?"*, choose **Cancel** or **Activate**. Either is fine, but activating switches your scheme to the extension.
-5. Set the extension's **Minimum Deployment** to match your app (or lower). A higher deployment target on the extension can stop it from loading.
-6. Select the **extension target → Signing & Capabilities**, add **App Groups**, and tick the same group as the main app.
+5. Set the extension's *Minimum Deployment* to match your app (or lower). A higher deployment target on the extension can stop it from loading.
+6. Select the *extension target → Signing & Capabilities*, add *App Groups*, and tick the same group as the main app.
 
-Xcode generates a **NotificationService.swift** with a **UNNotificationServiceExtension** subclass. You'll replace its body in the next sections.
+Xcode generates a **NotificationService.swift** with a *UNNotificationServiceExtension* subclass. You'll replace its body in the next sections.
 
 <br>
 
@@ -127,9 +127,9 @@ The extension is its own target, so it only sees files you explicitly give it.
 Organize clip names by language and voice, like this:
 
 ```
-Sounds.xcassets/
-├── en/
-│   └── female/
+AudioAssets.xcassets/
+├── en-US/
+│   └── Sreymom/
 │       ├── received      (data set: received.mp3)
 │       ├── 1 … 20
 │       ├── 30, 40 … 90
@@ -139,17 +139,19 @@ Sounds.xcassets/
 │       ├── and
 │       ├── dollars, dollar
 │       └── cents, cent
-└── km/
-    └── female/
+└── km-KH/
+    └── Piseth/
         └── …
 ```
 
-Data Sets can live in folders with **"Provides Namespace"** enabled, which lets you refer to them as **en/female/received**.
+Data Sets can live in folders with *"Provides Namespace"* enabled, which lets you refer to them as *en-US/Sreymom/received*.
 
 ### 2.4 Enable push and test it
 
-- Add the **Push Notifications** capability to the main app target.
-- To test without a server, create a .apns file and drag it onto the simulator:
+- Add the *Push Notifications* capability to the main app target.
+- To test notification service extension you need to send it from server such as *Apple Dashboard*.
+
+**Payload**
 
 ```json
 {
@@ -163,7 +165,7 @@ Data Sets can live in folders with **"Provides Namespace"** enabled, which lets 
 }
 ```
 
-- To debug the extension, run the **extension scheme** and pick your app as the host when Xcode asks. Breakpoints in **didReceive** will hit when the push arrives. Alternatively, use **Debug → Attach to Process by PID or Name…** and attach to **NotificationService** before sending the push.
+- To debug the extension, run the **extension scheme** and pick your app as the host when Xcode asks. Breakpoints in **didReceive** will hit when the push arrives. Alternatively, use *Debug → Attach to Process by PID or Name…* and attach to **NotificationService** before sending the push.
 
 ---
 
@@ -171,7 +173,7 @@ Data Sets can live in folders with **"Provides Namespace"** enabled, which lets 
 
 ## 3. Sharing settings through the App Group
 
-The user chooses the voice, the language, and whether the feature is on inside the main app. The extension needs to read those choices. **UserDefaults(suiteName:)** with the group ID does exactly this.
+The user chooses the voice, the language, and whether the feature is on inside the main app. The extension needs to read those choices. *UserDefaults(suiteName:)* with the group ID does exactly this.
 
 ```swift
 import Foundation
@@ -194,7 +196,7 @@ final class AppGroupManager {
 }
 ```
 
-The extension calls **getEnablePaysound()** first. If the feature is off, it hands the original content back and returns immediately, so users who don't want spoken alerts pay no cost.
+The extension calls *getEnablePaysound()* first. If the feature is off, it hands the original content back and returns immediately, so users who don't want spoken alerts pay no cost.
 
 ---
 
@@ -202,13 +204,13 @@ The extension calls **getEnablePaysound()** first. If the feature is off, it han
 
 ## 4. Turning an amount into a list of clips
 
-Recording a clip for every possible amount is impossible, so we record a small vocabulary and build every amount from it. **SpeechSequence** converts a string like **"1,250.50"** into an ordered list of clip names.
+Recording a clip for every possible amount is impossible, so we record a small vocabulary and build every amount from it. **SpeechSequence** converts a string like *"1,250.50"* into an ordered list of clip names.
 
 <br>
 
 ### English
 
-English needs a small vocabulary: the numbers up to 20, the tens, and the words **hundred**, **thousand**, **million**, **and**, plus currency words. Here's the core of the spelling logic:
+English needs a small vocabulary: the numbers up to 20, the tens, and the words *hundred*, *thousand*, *million*, *and*, plus currency words. Here's the core of the spelling logic:
 
 ```swift
 private func spell(_ n: Int) -> [String] {
@@ -235,7 +237,7 @@ private func spell(_ n: Int) -> [String] {
 }
 ```
 
-Money needs care with decimals. Parsing with **Decimal** and rounding to whole cents avoids floating point surprises such as **0.1 + 0.2**:
+Money needs care with decimals. Parsing with *Decimal* and rounding to whole cents avoids floating point surprises such as *0.1 + 0.2*:
 
 ```swift
 var rounded = value * 100
@@ -246,17 +248,17 @@ let dollars = total / 100
 let cents = total % 100
 ```
 
-Then the clips are assembled: **12.50 USD** becomes **["10", "2", "dollars", "and", "50", "cents"]**, and **1 USD** uses the singular **dollar**.
+Then the clips are assembled: *12.50 USD* becomes *["10", "2", "dollars", "and", "50", "cents"]*, and *1 USD* uses the singular **dollar**.
 
 <br>
 
 ### Khmer
 
-Khmer number words are built by place value, so the implementation decomposes the number into round parts (**100000**, **20000**, **5000**, **300**, **40**, **2**) and each part has its own clip. Some ranges use direct clips instead of a "million" word. This keeps the recorded vocabulary compact, and the result sounds natural because native speakers say numbers the same way.
+Khmer number words are built by place value, so the implementation decomposes the number into round parts (*100000*, *20000*, *5000*, *300*, *40*, *2*) and each part has its own clip. Some ranges use direct clips instead of a "million" word. This keeps the recorded vocabulary compact, and the result sounds natural because native speakers say numbers the same way.
 
-The currency word (**dollar**, **riel**) and the cent part follow the integer part. Single digit decimals are padded (**.5** means 50 cents), which is an easy bug to miss.
+The currency word (*dollar*, *riel*) and the cent part follow the integer part. Single digit decimals are padded (*.5* means 50 cents), which is an easy bug to miss.
 
-> **Tip:** Keep the vocabulary generator separate from the audio code. **SpeechSequence** returns only strings, so you can unit test it with no audio at all: **XCTAssertEqual(seq("12.50"), ["10","2","dollars","and","50","cents"])**.
+> **Tip:** Keep the vocabulary generator separate from the audio code. **SpeechSequence** returns only strings, so you can unit test it with no audio at all: XCTAssertEqual(seq("12.50"), ["10","2","dollars","and","50","cents"]).
 
 ---
 
@@ -272,11 +274,11 @@ If you simply concatenate the clips, the result sounds robotic and clicky. The p
 
 **AudioComposer** fixes these in a pipeline:
 
-1. **Decode to mono float.** Every clip is converted to the same sample rate and format with **AVAudioConverter**, so they can be mixed.
-2. **Optional time stretch.** For English, clips after the first are sped up (1.2×) with **AVAudioUnitTimePitch** in *offline manual rendering* mode. This keeps the pitch and shortens the announcement.
+1. **Decode to mono float.** Every clip is converted to the same sample rate and format with *AVAudioConverter*, so they can be mixed.
+2. **Optional time stretch.** For English, clips after the first are sped up (1.2×) with *AVAudioUnitTimePitch* in *offline manual rendering* mode. This keeps the pitch and shortens the announcement.
 3. **Trim silence.** Samples below −40 dB relative to the peak are removed at both ends, with about 10 ms of padding.
 4. **Match loudness.** The RMS of the next clip's head is scaled to match the previous clip's tail (the gain is clamped between 0.5 and 2.0 to avoid extreme jumps).
-5. **Pitch-synchronous crossfade.** The tail of the current audio and the head of the next clip are blended over about three pitch periods. The pitch period is estimated with autocorrelation (**vDSP_dotpr**), and Hann-windowed periods are overlap-added.
+5. **Pitch-synchronous crossfade.** The tail of the current audio and the head of the next clip are blended over about three pitch periods. The pitch period is estimated with autocorrelation (*vDSP_dotpr*), and Hann-windowed periods are overlap-added.
 6. **Normalize.** The final peak is scaled to 0.85 so the notification is loud enough.
 7. **Write a .caf** as 16-bit linear PCM.
 
@@ -417,11 +419,11 @@ private func applyPaysoundAudio(to content: UNMutableNotificationContent,
 }
 ```
 
-`AVAudioFile` reads from a file URL, so each `NSDataAsset` is first written to the temp folder:
+**AVAudioFile** reads from a file URL, so each *NSDataAsset* is first written to the temp folder:
 
 ```swift
 private func writeClip(token: String, to directory: URL) throws -> URL {
-    let assetName = "\(voicePrefixPath)/\(token)"          // e.g. "en/female/10"
+    let assetName = "\(voicePrefixPath)/\(token)"          // e.g. "en-US/Sreymom/10"
     guard let asset = NSDataAsset(name: assetName, bundle: Bundle(for: Self.self)) else {
         throw SpeechError.missingClip(token)
     }
@@ -450,7 +452,7 @@ private func installSound(from source: URL, named name: String) throws {
 }
 ```
 
-Each notification writes a new uniquely named file, so nothing overwrites a sound that is still playing, but nothing removes old files either. **pruneOldSounds** deletes anything with our prefix that is older than 24 hours:
+Each notification writes a new uniquely named file, so nothing overwrites a sound that is still playing, but nothing removes old files either. *pruneOldSounds* deletes anything with our prefix that is older than 24 hours:
 
 ```swift
 private func pruneOldSounds(in directory: URL) {
