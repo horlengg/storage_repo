@@ -26,7 +26,7 @@ By the end you'll have the full setup in Xcode and the code to build it.
 
 <br>
 
-<video controls>
+<video controls style="width: 100%;">
   <source src="https://github.com/horlengg/storage_repo/raw/refs/heads/dev/VoiceAlertDemo.mp4" type="video/mp4">
 </video>
 
