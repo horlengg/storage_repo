@@ -27,8 +27,14 @@ By the end you'll have the full setup in Xcode and the code to build it.
 <br>
 
 <video controls style="width: 100%;">
-  <source src="https://github.com/horlengg/storage_repo/raw/refs/heads/dev/VoiceAlertDemo.mp4" type="video/mp4">
+  <source
+    src="https://raw.githubusercontent.com/horlengg/storage_repo/dev/VoiceAlertDemo.mp4"
+    type="video/mp4"
+  >
+  Your browser does not support the video tag.
 </video>
+
+
 
 <br>
 <br>
