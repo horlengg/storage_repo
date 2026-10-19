@@ -15,7 +15,7 @@ Hello guys!
 <br>
 <br>
 
-![demo.png](/images/mask_demo.jpg)
+![demo.png](https://raw.githubusercontent.com/horlengg/mask_detector/dev/mask_demo.jpg)
 
 
 <br>
